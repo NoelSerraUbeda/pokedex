@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato:300,400&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #efefbb;
+            background: linear-gradient(to right, #d4d3dd, #efefbb);
+            font-family: 'Lato', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        h1 {
+            letter-spacing: 3px;
+            font-size: 60px;
+        }
+
+        .poke-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: space-between;
+            justify-content: center;
+            margin: 0 100px;
+        }
+
+        .pokemon {
+            background-color: #eee;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .pokemon:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        .pokemon .img-container {
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            text-align: center;
+        }
+
+        .pokemon .img-container img {
+            max-width: 90%;
+            margin-top: 20px;
+        }
+
+        .pokemon .info {
+            margin-top: 20px;
+        }
+
+        .pokemon .info .number {
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.8em;
+        }
+
+        .pokemon .info .name {
+            margin: 15px 0 7px;
+            letter-spacing: 1px;
+        }
+    </style>
+    <title>Pokedex</title>
+</head>
+
+<body>
+    <h1>Pokedex</h1>
+    <div class="filter-buttons" id="filter-buttons"></div>
+    <div class="poke-container" id="poke-container"></div>
+
+    <!-- Design inspired by this Dribbble shot: https://dribbble.com/shots/5611109--Pokemon -->
+    <script>
+        const poke_container = document.getElementById('poke-container');
+        const filter_buttons = document.getElementById('filter-buttons');
+        const pokemon_count = 150;
+        const colors = {
+            fire: '#ff9c54',
+            grass: '#63bb5b',
+            electric: '#f3d23b',
+            water: '#4d90d5',
+            ground: '#d97746',
+            rock: '#bfb186',
+            fairy: '#ec8fe6',
+            poison: '#ab6ac8',
+            bug: '#90c12c',
+            dragon: '#0a6dc4',
+            psychic: '#f97176',
+            flying: '#8fa8dd',
+            fighting: '#ce4069',
+            normal: '#8f98a0'
+        };
+
+        const main_types = Object.keys(colors);
+
+        // Función para filtrar los Pokémon según el tipo seleccionado
+        const filterPokemonsByType = (type) => {
+            const pokemonCards = document.querySelectorAll('.pokemon');
+            pokemonCards.forEach((card) => {
+                const cardType = card.querySelector('.type').textContent.toLowerCase(); // Convertir a minúsculas
+                if (type === 'all' || cardType === type.toLowerCase() || cardType === type.toUpperCase()) { // Comparar tanto minúsculas como mayúsculas
+                    card.style.display = 'inline-block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        };
+
+
+        // Agregar botones de filtro para cada tipo de Pokémon
+        const renderFilterButtons = () => {
+            const allButton = document.createElement('button');
+            allButton.textContent = 'All';
+            allButton.addEventListener('click', () => filterPokemonsByType('all'));
+            filter_buttons.appendChild(allButton);
+
+            main_types.forEach((type) => {
+                const button = document.createElement('button');
+                button.textContent = type.toUpperCase(); // Convertir a mayúsculas
+                button.addEventListener('click', () => filterPokemonsByType(type));
+                filter_buttons.appendChild(button);
+            });
+        };
+
+
+        // Función para obtener datos de Pokémon de la API
+        const fetchPokemons = async () => {
+            for (let i = 1; i <= pokemon_count; i++) {
+                await getPokemon(i);
+            }
+        };
+
+        // Función para obtener datos de un Pokémon específico
+        const getPokemon = async (id) => {
+            const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            createPokemonCard(data);
+        };
+
+        // Función para crear una tarjeta de Pokémon
+        const createPokemonCard = (pokemon) => {
+            const pokemonEl = document.createElement('div');
+            pokemonEl.classList.add('pokemon');
+
+            const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+            const id = pokemon.id.toString().padStart(3, '0');
+
+            const poke_types = pokemon.types.map(type => type.type.name);
+            const type = main_types.find(type => poke_types.indexOf(type) > -1);
+            const color = colors[type];
+
+            pokemonEl.style.backgroundColor = color;
+
+            const pokemonInnerHTML = `
+        <div class="img-container">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png" alt="${name}">
+        </div>
+        <div class="info">
+            <span class="number">#${id}</span>
+            <h3 class="name">${name}</h3>
+            <small class="type">${type}</small> <!-- Agregar la clase type aquí -->
+        </div>
+    `;
+            pokemonEl.innerHTML = pokemonInnerHTML;
+
+            poke_container.appendChild(pokemonEl);
+        };
+
+
+        // Inicializar la Pokédex
+        renderFilterButtons();
+        fetchPokemons();
+    </script>
+</body>
+
+
+</html>
