@@ -11,6 +11,11 @@
             box-sizing: border-box;
         }
 
+        h3 {
+            max-width: 8rem;
+            text-align: center;
+        }
+
         body {
             background: #efefbb;
             background: linear-gradient(to right, #d4d3dd, #efefbb);
@@ -32,7 +37,7 @@
             flex-wrap: wrap;
             align-items: space-between;
             justify-content: center;
-            margin: 0 100px;
+            margin: 0 50px;
         }
 
         .pokemon {
@@ -40,7 +45,7 @@
             border-radius: 10px;
             box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
             margin: 10px;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             color: white;
             transition: all 0.3s;
@@ -92,7 +97,7 @@
     <script>
         const poke_container = document.getElementById('poke-container');
         const filter_buttons = document.getElementById('filter-buttons');
-        const pokemon_count = 150;
+        const pokemon_count = 1000;
         const colors = {
             fire: '#ff9c54',
             grass: '#63bb5b',
@@ -155,10 +160,11 @@
             const res = await fetch(url);
             const data = await res.json();
             createPokemonCard(data);
+            console.log(data)
         };
 
         // Función para crear una tarjeta de Pokémon
-        const createPokemonCard = (pokemon) => {
+        const createPokemonCard = async (pokemon) => {
             const pokemonEl = document.createElement('div');
             pokemonEl.classList.add('pokemon');
 
