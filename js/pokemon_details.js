@@ -56,7 +56,8 @@ const displayPokemonDetails = (pokemon) => {
     types.textContent = 'Types: ' + pokemonTypes.join(', ');
 
     const abilities = document.createElement('p');
-    abilities.textContent = 'Abilities: ' + pokemon.abilities.map(ability => ability.ability.name).join(', ');
+    const regularAbilities = pokemon.abilities.filter(ability => !ability.is_hidden).map(ability => ability.ability.name).join(', ');
+    abilities.textContent = 'Abilities: ' + regularAbilities;
 
     const hiddenAbility = pokemon.abilities.find(ability => ability.is_hidden);
     if (hiddenAbility) {
@@ -94,7 +95,6 @@ const displayPokemonDetails = (pokemon) => {
 
     pokemonDetailsContainer.appendChild(detailsWrapper);
 };
-
 
 
 
