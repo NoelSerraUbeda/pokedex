@@ -144,3 +144,13 @@ small {
     transform: scale(1.1);
     cursor: pointer;
 }
+
+input {
+    width: 40rem;
+    height: 3rem;
+    font-size: 40px;
+    border: solid 3px grey;
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-indent: 0.5rem;
+}
