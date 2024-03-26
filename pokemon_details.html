@@ -1,20 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Details</title>
-    <link rel="stylesheet" href="css/details.css">
-</head>
-<body>
-    <h1 class="name"></h1>
-    <div id="pokemon-details-container">
-        <!-- Aquí se mostrarán los detalles del Pokémon -->
-    </div>
-    <!-- Agregar la flecha que apunta hacia la derecha -->
-    <div id="return-arrow" class="return"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>arrow-left-bold-outline</title><path d="M13,22L3,12L13,2V8H21V16H13V22M6,12L11,17V14H19V10H11V7L6,12Z" /></svg></div>
-    <script src="js/pokemon_details.js"></script>
-    <script src="js/return.js"></script>
-</body>
-</html>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="resources/images/icon.png" type="image/x-icon">
+  <title>Pokémon Details</title>
+  <link rel="stylesheet" href="css/details.css">
+</head>
+
+<body>
+  <h1 class="name"></h1>
+  <div id="pokemon-details-container">
+    <div class="details-wrapper">
+      <div class="image-wrapper">
+        <div class="image-container">
+          <img src="" alt="" id="pokemon-image">
+        </div>
+        <p id="pokemon-types"><span>Types:</span></p>
+        <p id="pokemon-abilities"><span>Abilities:</span></p>
+      </div>
+      <div class="info-wrapper">
+        <h2 class="stats">Base Stats</h2>
+        <ul class="stats-list"></ul>
+        <br>
+        <div class="description-container">
+          <h2 class="description-text">Description:</h2>
+          <p id="pokemon-description"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Agregar la flecha que apunta hacia la derecha -->
+  <div id="return-arrow" class="return">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M19,7V11H5.83L9.41,7.41L8,6L2,12L8,18L9.41,16.58L5.83,13H21V7H19Z" />
+    </svg>
+  </div>
+  <script src="js/pokemon_details.js"></script>
+  <script src="js/return.js"></script>
+</body>
+
+</html>
