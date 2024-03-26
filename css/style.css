@@ -171,6 +171,20 @@ footer p {
   margin: 0;
 }
 
+footer svg {
+  width: 2.5rem;
+  position: absolute;
+  top: 15%;
+  right: 0;
+  fill: white;
+  transition: all 0.3s;
+}
+
+footer svg:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
 
   .poke-container {

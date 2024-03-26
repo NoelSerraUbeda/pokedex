@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const poke_container = document.getElementById('poke-container');
   const type_filter_buttons = document.getElementById('filter-buttons');
-  const loader = document.getElementById('loader'); // Nuevo
+  const loader = document.getElementById('loader');
   const pokemon_count = 1025;
   const colors = {
     fire: '#ff9c54', grass: '#63bb5b', electric: '#f3d23b', water: '#4d90d5', ground: '#d97746', rock: '#bfb186', fairy: '#ec8fe6', poison: '#ab6ac8', bug: '#90c12c', dragon: '#0a6dc4', psychic: '#f97176', flying: '#8fa8dd', fighting: '#ce4069', normal: '#8f98a0', dark: '#5a5366', steel: '#aab8c2', ice: '#a3e7fd', ghost: '#705898'
@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const main_types = Object.keys(colors);
 
   const fetchPokemons = async () => {
-    loader.style.display = 'block'; // Mostrar la pantalla de carga
+    loader.style.display = 'block'; 
     for (let i = 1; i <= pokemon_count; i++) {
       await getPokemon(i);
     }
     type_filter_buttons.style.display = 'flex';
-    loader.style.display = 'none'; // Ocultar la pantalla de carga al completar la carga
+    loader.style.display = 'none'; 
   };
 
   const getPokemon = async (id) => {
@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     createPokemonCard(data);
   };
 
-  // Función para crear una tarjeta de Pokémon
   const createPokemonCard = (pokemon) => {
     const pokemonEl = document.createElement('div');
     pokemonEl.classList.add('pokemon');
@@ -66,12 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
       window.open(`pokemon_details.html?id=${pokemon.id}`, '_blank');
     });
 
-    pokemonEl.setAttribute('data-id', pokemon.id); // Agregar atributo de ID de Pokémon
-
+    pokemonEl.setAttribute('data-id', pokemon.id); 
     poke_container.appendChild(pokemonEl);
   };
 
-  // Función para filtrar los Pokémon por tipo seleccionado
   const filterPokemonsByType = (type) => {
     const pokemonCards = document.querySelectorAll('.pokemon');
     pokemonCards.forEach((card) => {
@@ -84,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Función para renderizar botones de filtro por tipo
   const renderTypeFilterButtons = () => {
     const allButton = document.createElement('img');
     allButton.src = 'resources/images/all.png';
@@ -101,11 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
       button.addEventListener('click', () => filterPokemonsByType(type));
       type_filter_buttons.appendChild(button);
     });
-    // Ocultar los botones de filtrado al principio
     type_filter_buttons.style.display = 'none';
   };
 
-  // Función para filtrar los Pokémon por generación seleccionada
   const filterPokemonsByGeneration = (gen) => {
     const pokemons = document.querySelectorAll('.pokemon');
     pokemons.forEach(pokemon => {
@@ -118,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Función para renderizar botones de filtro por generación
   const renderGenerationFilterButtons = () => {
     const genButtons = document.querySelectorAll('.gen-filter');
     genButtons.forEach(button => {
@@ -128,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   };
-  // Función para determinar la generación basada en el ID del Pokémon
+
   const getGeneration = (id) => {
     if (id <= 151) {
       return 1;
@@ -149,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else { return 9; }
   };
 
-  // Función para filtrar Pokémon por nombre
   const filterPokemonsByName = (name) => {
     const pokemonCards = document.querySelectorAll('.pokemon');
     pokemonCards.forEach((card) => {
@@ -162,16 +154,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Escuchar el evento de cambio en el campo de búsqueda
   const pokemonSearchInput = document.getElementById('pokemon-search');
   pokemonSearchInput.addEventListener('input', () => {
     const searchTerm = pokemonSearchInput.value;
     filterPokemonsByName(searchTerm);
   });
 
+  // Función para llevar la página al principio
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+  // Agregar evento de click al SVG en el footer para desplazar al principio de la página
+  const svgFooter = document.querySelector('footer svg');
+  svgFooter.addEventListener('click', scrollToTop);
+
   // Inicializar la Pokédex
   renderTypeFilterButtons();
   renderGenerationFilterButtons();
   fetchPokemons();
-
 });
