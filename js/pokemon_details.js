@@ -34,6 +34,8 @@ const getPokemonSpeciesDetails = async (id) => {
 };
 
 const displayPokemonDetails = async (pokemon) => {
+  const pokemonName = capitalizeFirstLetter(pokemon.name);
+  document.title = `Pokémon Details - ${pokemonName}`;
   const name = document.querySelector('.name');
   name.textContent = capitalizeFirstLetter(pokemon.name);
 
@@ -51,18 +53,18 @@ const displayPokemonDetails = async (pokemon) => {
 
   const hiddenAbility = pokemon.abilities.find(ability => ability.is_hidden);
   if (hiddenAbility) {
-      const hiddenAbilityElement = document.createElement('p');
-      hiddenAbilityElement.innerHTML = '<span>Hidden Ability:</span> ' + capitalizeFirstLetter(hiddenAbility.ability.name);
-      hiddenAbilityElement.id = 'pokemon-hidden-ability';
-      abilities.parentNode.insertBefore(hiddenAbilityElement, abilities.nextSibling);
+    const hiddenAbilityElement = document.createElement('p');
+    hiddenAbilityElement.innerHTML = '<span>Hidden Ability:</span> ' + capitalizeFirstLetter(hiddenAbility.ability.name);
+    hiddenAbilityElement.id = 'pokemon-hidden-ability';
+    abilities.parentNode.insertBefore(hiddenAbilityElement, abilities.nextSibling);
   }
 
   const statsList = document.querySelector('.stats-list');
   statsList.innerHTML = '';
   pokemon.stats.forEach(stat => {
-      const statItem = document.createElement('li');
-      statItem.textContent = `${capitalizeFirstLetter(stat.stat.name)}: ${stat.base_stat}`;
-      statsList.appendChild(statItem);
+    const statItem = document.createElement('li');
+    statItem.textContent = `${capitalizeFirstLetter(stat.stat.name)}: ${stat.base_stat}`;
+    statsList.appendChild(statItem);
   });
 
   // Obtener el color correspondiente al tipo del Pokémon
@@ -70,17 +72,18 @@ const displayPokemonDetails = async (pokemon) => {
 
   // Si hay un tipo coincidente, aplicar el color como fondo a la imagen
   if (matchingType) {
-      const color = getColorForType(matchingType);
-      image.style.backgroundColor = color;
-      image.style.padding = '5px'; // Añadir un pequeño espacio para visualización
+    const color = getColorForType(matchingType);
+    image.style.backgroundColor = color;
   }
 
   // Agregar descripción
   const speciesDetails = await getPokemonSpeciesDetails(pokemon.id);
+
   const flavorTextEntries = speciesDetails.flavor_text_entries;
   const description = flavorTextEntries.find(entry => entry.language.name === 'en').flavor_text; // Seleccionar descripción en inglés
+  const description_modify = description.replace(//g, " ");
   const descriptionParagraph = document.getElementById('pokemon-description');
-  descriptionParagraph.textContent = description;
+  descriptionParagraph.textContent = description_modify;
 };
 
 

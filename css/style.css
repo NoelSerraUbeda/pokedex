@@ -10,7 +10,6 @@ h3 {
 }
 
 body {
-  background: #efefbb;
   background: linear-gradient(to right, #d4d3dd, #efefbb);
   font-family: 'Lato', sans-serif;
   display: flex;
@@ -19,7 +18,7 @@ body {
   justify-content: center;
   margin: 0;
   overflow: auto;
-  margin-bottom: 1rem;
+  position: relative;
 }
 
 body::-webkit-scrollbar {
@@ -27,8 +26,10 @@ body::-webkit-scrollbar {
 }
 
 h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   letter-spacing: 3px;
   font-size: 60px;
+  font-weight: bolder;
 }
 
 .poke-container {
@@ -37,6 +38,7 @@ h1 {
   align-items: space-between;
   justify-content: center;
   margin: 0 50px;
+  margin-bottom: 5rem;
 }
 
 .pokemon {
@@ -91,7 +93,6 @@ small {
 }
 
 .filter-buttons {
-  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -154,4 +155,39 @@ input {
   border-radius: 15px;
   padding: 1.5rem;
   text-indent: 0.5rem;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+footer p {
+  margin: 0;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .poke-container {
+    margin: 0;
+  }
+
+  .generation-buttons {
+    gap: 0.8rem;
+  }
+  
+  .gen-filter {
+    font-size: 16px;
+  }
+
+  input {
+    width: 20rem;
+    height: 3rem;
+    font-size: 20px;
+  }
 }

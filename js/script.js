@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= pokemon_count; i++) {
       await getPokemon(i);
     }
-    type_filter_buttons.style.display = 'block';
+    type_filter_buttons.style.display = 'flex';
     loader.style.display = 'none'; // Ocultar la pantalla de carga al completar la carga
   };
 
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pokemonEl.innerHTML = pokemonInnerHTML;
 
     pokemonEl.addEventListener('click', () => {
-      window.location.href = `pokemon_details.html?id=${pokemon.id}`;
+      window.open(`pokemon_details.html?id=${pokemon.id}`, '_blank');
     });
 
     pokemonEl.setAttribute('data-id', pokemon.id); // Agregar atributo de ID de Pokémon

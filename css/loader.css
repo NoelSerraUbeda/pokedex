@@ -4,24 +4,59 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #000;
+  background-color: #353535;
   z-index: 9999;
-  display: none; 
+  display: none;
 }
 
 .loader:after {
-  content: '';
+  content: 'Loading Pokedex...';
+  font-family: Arial, sans-serif;
+  font-size: 80px;
+  font-weight: bolder;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: white;
   position: absolute;
-  top: 40%;
-  left: 45%;
-  width: 100px; 
-  height: 100px; 
-  border: 50px solid red; 
-  border-radius: 50%;
-  border-top-color: transparent;
-  animation: spin 1.2s linear infinite; 
+  bottom: 5%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  animation: fadeIn 1s ease-in-out infinite alternate;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.loader:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px; 
+  height: 100px; 
+  margin: -50px 0 0 -50px;
+  background: url('/resources/images/icon.png') no-repeat center center;
+  background-size:contain ; 
+  animation: pulse 2s linear infinite; 
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(3);
+  }
+
+  50% {
+    transform: scale(4);
+  }
+
+  100% {
+    transform: scale(3);
+  }
 }
