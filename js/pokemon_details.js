@@ -34,6 +34,7 @@ const getPokemonSpeciesDetails = async (id) => {
 };
 
 const displayPokemonDetails = async (pokemon) => {
+  
   const pokemonName = capitalizeFirstLetter(pokemon.name);
   document.title = `Pokémon Details - ${pokemonName}`;
   const name = document.querySelector('.name');

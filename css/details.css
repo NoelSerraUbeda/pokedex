@@ -29,6 +29,8 @@ body {
   display: flex;
   flex-direction: column;
   background-color: transparent;
+  justify-content: center;
+  align-items: center;
 }
 
 img {
@@ -108,5 +110,4 @@ p {
 
 span {
   font-weight: 900;
-  text-decoration: underline;
 }
