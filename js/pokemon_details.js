@@ -13,19 +13,7 @@ const getPokemonDetails = async (id) => {
   displayPokemonDetails(data);
 };
 
-const colors = {
-  fire: '#ff9c54', grass: '#63bb5b', electric: '#f3d23b', water: '#4d90d5', ground: '#d97746', rock: '#bfb186', fairy: '#ec8fe6', poison: '#ab6ac8', bug: '#90c12c', dragon: '#0a6dc4', psychic: '#f97176', flying: '#8fa8dd', fighting: '#ce4069', normal: '#8f98a0', dark: '#5a5366', steel: '#aab8c2', ice: '#a3e7fd', ghost: '#705898'
-};
-
-const getColorForType = (type) => {
-  const color = colors[type];
-  return color ? color : null;
-};
-
-const capitalizeFirstLetter = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
+// Datos
 const getPokemonSpeciesDetails = async (id) => {
   const url = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
   const res = await fetch(url);
@@ -33,8 +21,25 @@ const getPokemonSpeciesDetails = async (id) => {
   return data;
 };
 
+// Colores
+const colors = {
+  fire: '#ff9c54', grass: '#63bb5b', electric: '#f3d23b', water: '#4d90d5', ground: '#d97746', rock: '#bfb186', fairy: '#ec8fe6', poison: '#ab6ac8', bug: '#90c12c', dragon: '#0a6dc4', psychic: '#f97176', flying: '#8fa8dd', fighting: '#ce4069', normal: '#8f98a0', dark: '#5a5366', steel: '#aab8c2', ice: '#a3e7fd', ghost: '#705898'
+};
+
+// Asignar color a tipo
+const getColorForType = (type) => {
+  const color = colors[type];
+  return color ? color : null;
+};
+
+// Mayusculas a los datos
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+// Display de los datos
 const displayPokemonDetails = async (pokemon) => {
-  
+
   const pokemonName = capitalizeFirstLetter(pokemon.name);
   document.title = `Pokémon Details - ${pokemonName}`;
   const name = document.querySelector('.name');
@@ -44,13 +49,19 @@ const displayPokemonDetails = async (pokemon) => {
   image.src = pokemon.sprites.front_default;
   image.alt = pokemon.name;
 
+  const dataContainer = document.getElementById('data-container');
+
+  // Mostrar tipos
   const types = document.getElementById('pokemon-types');
   const pokemonTypes = pokemon.types.map(type => type.type.name.toLowerCase());
   types.innerHTML = '<span>Types:</span> ' + pokemonTypes.map(type => capitalizeFirstLetter(type)).join(', ');
+  dataContainer.appendChild(types);
 
+  // Mostrar habilidades
   const abilities = document.getElementById('pokemon-abilities');
   const regularAbilities = pokemon.abilities.filter(ability => !ability.is_hidden).map(ability => capitalizeFirstLetter(ability.ability.name)).join(', ');
   abilities.innerHTML = '<span>Abilities:</span> ' + regularAbilities;
+  dataContainer.appendChild(abilities);
 
   const hiddenAbility = pokemon.abilities.find(ability => ability.is_hidden);
   if (hiddenAbility) {
@@ -81,13 +92,20 @@ const displayPokemonDetails = async (pokemon) => {
   const speciesDetails = await getPokemonSpeciesDetails(pokemon.id);
 
   const flavorTextEntries = speciesDetails.flavor_text_entries;
-  const description = flavorTextEntries.find(entry => entry.language.name === 'en').flavor_text; // Seleccionar descripción en inglés
+  const description = flavorTextEntries.find(entry => entry.language.name === 'en').flavor_text;
   const description_modify = description.replace(//g, " ");
   const descriptionParagraph = document.getElementById('pokemon-description');
   descriptionParagraph.textContent = description_modify;
+
+  // Mostrar altura y peso
+  const heightElement = document.getElementById('height');
+  heightElement.textContent = `Height: ${pokemon.height / 10} m`; // Convertir de decímetros a metros
+
+  const weightElement = document.getElementById('weight');
+  weightElement.textContent = `Weight: ${pokemon.weight / 10} kg`;
 };
 
-
+// Descripción
 const addPokemonDescription = (description) => {
   const descriptionContainer = document.createElement('div');
   descriptionContainer.classList.add('description-container');
@@ -101,4 +119,6 @@ const addPokemonDescription = (description) => {
   const pokemonDetailsContainer = document.getElementById('pokemon-details-container');
   pokemonDetailsContainer.appendChild(descriptionContainer);
 };
+
+
 

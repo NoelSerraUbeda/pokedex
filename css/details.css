@@ -11,7 +11,6 @@ body {
   position: relative;
 }
 
-
 #pokemon-details-container {
   display: flex;
   align-items: start;
@@ -31,12 +30,17 @@ body {
   background-color: transparent;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
 }
 
 img {
-  max-width: 400px;
   height: 400px;
   border-radius: 40px;
+}
+
+.data-container {
+  width: 100%;
+  padding: 0.5rem;
 }
 
 .info-wrapper {
@@ -52,7 +56,7 @@ h1 {
 }
 
 p {
-  font-size: 30px;
+  font-size: 26px;
   margin: 0;
   line-height: 4rem;
 }
@@ -63,6 +67,17 @@ p {
   font-size: 38px;
   margin-bottom: 25px;
   margin-top: 50px;
+}
+
+.pokebody-container p {
+  font-size: 26px;
+  margin-left: 1rem;
+}
+
+.liner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between
 }
 
 .description-container p {
@@ -110,4 +125,95 @@ p {
 
 span {
   font-weight: 900;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+footer p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 0;
+}
+
+@media only screen and (max-width: 800px) {
+  body {
+    padding:1rem 2rem 3rem 2rem;
+  }
+
+  img {
+    height: 500px;
+  }
+
+  .details-wrapper {
+    grid-template-columns: 1fr; 
+    gap: 0.5rem; 
+  }
+
+  .info-wrapper {
+    width: 90%;
+    text-align: center; 
+  }
+
+  h1 {
+    font-size: 40px; 
+    margin-bottom: 20px; 
+  }
+
+  p {
+    font-size: 20px; 
+    line-height: 2.5rem; 
+  }
+
+  .description-text {
+    font-size: 24px; 
+    margin-bottom: 15px; 
+    margin-top: 30px; 
+  }
+
+  .pokebody-container p {
+    font-size: 18px; 
+    margin-left: 0.3rem; 
+  }
+
+  .description-container p {
+    font-size: 18px; 
+    margin-left: 0.3rem; 
+  }
+
+  .stats {
+    font-size: 24px;
+    margin-bottom: 15px; 
+    margin-top: 30px; 
+  }
+
+  .info-wrapper li {
+    font-size: 20px; 
+    margin-left: 0.3rem; 
+    text-align: center;
+  }
+
+
+
+  .return svg {
+    width: 3rem;
+    margin-right: 1rem;
+  }
+
+  .data-container {
+    display: flex;
+    gap:1.5rem;
+  }
+
+  .data-container p{
+    font-size: 18.5px;
+  }
+
 }

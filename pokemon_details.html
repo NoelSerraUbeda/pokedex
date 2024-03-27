@@ -7,6 +7,7 @@
   <link rel="icon" href="resources/images/icon.png" type="image/x-icon">
   <title></title>
   <link rel="stylesheet" href="css/details.css">
+  <script src="js/pokemon_details.js"></script>
 </head>
 
 <body>
@@ -17,27 +18,42 @@
         <div class="image-container">
           <img src="" alt="" id="pokemon-image">
         </div>
-        <p id="pokemon-types"><span>Types:</span></p>
-        <p id="pokemon-abilities"><span>Abilities:</span></p>
+        <div class="data-container" id="data-container">
+          <p id="pokemon-types"><span>Types:</span></p>
+          <p id="pokemon-abilities"><span>Abilities:</span></p>
+        </div>
       </div>
+
       <div class="info-wrapper">
         <h2 class="stats">Base Stats</h2>
         <ul class="stats-list"></ul>
         <br>
+        <div class="pokebody-container">
+          <h2 class="description-text">Height and Weight:</h2>
+          <div class="liner">
+            <p id="height"></p>
+            <p id="weight"></p>
+          </div>
+        </div>
         <div class="description-container">
           <h2 class="description-text">Description:</h2>
           <p id="pokemon-description"></p>
         </div>
       </div>
+
     </div>
   </div>
 
   <div id="return-arrow" class="return">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path fill="black" d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" />
+      <path fill="black"
+        d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" />
     </svg>
   </div>
-  <script src="js/pokemon_details.js"></script>
+
+  <footer>
+    <p>This is the footer of the page.</p>
+  </footer>
   <script src="js/close.js"></script>
 </body>
 
