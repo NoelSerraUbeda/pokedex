@@ -11,6 +11,10 @@ body {
   position: relative;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 #pokemon-details-container {
   display: flex;
   align-items: start;
@@ -45,6 +49,7 @@ img {
 
 .info-wrapper {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   width: 700px;
 }
@@ -69,7 +74,8 @@ p {
 .liner {
   display: flex;
   flex-direction: row;
-  justify-content: space-between
+  justify-content: start;
+  gap: 10rem;
 }
 
 .description-container p {
@@ -136,54 +142,66 @@ footer p {
 
 @media only screen and (max-width: 1000px) {
   body {
-    padding:1rem 2rem 3rem 2rem;
+    padding: 1rem 2rem 3rem 2rem;
+  }
+
+  #pokemon-details-container {
+    align-items: center;
   }
 
   img {
-    height: 400px;
+    height: 350px;
   }
 
   .details-wrapper {
-    grid-template-columns: 1fr; 
-    gap: 0.5rem; 
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
 
   .info-wrapper {
-    width: 90%;
-    text-align: center; 
+    width: 100%;
+    text-align: center;
   }
 
   h1 {
-    font-size: 40px; 
-    margin-bottom: 20px; 
+    font-size: 40px;
+    margin-bottom: 20px;
   }
 
   p {
-    line-height: 2.5rem; 
-    font-size: 18px; 
+    line-height: 2.5rem;
+    font-size: 18px;
+  }
+
+  .pokebody-container {
+    width: 25rem;
   }
 
   .pokebody-container p {
-    font-size: 18px; 
-    margin-left: 0.3rem; 
+    font-size: 18px;
+    margin-left: 0.3rem;
+  }
+
+  .description-container {
+    width: 25rem;
   }
 
   .description-container p {
-    font-size: 18px; 
-    margin-left: 0.3rem; 
+    font-size: 18px;
+    margin-left: 0.3rem;
     text-align: justify;
     width: 100%;
   }
 
   .stats {
     font-size: 30px;
-    margin-bottom: 15px; 
-    margin-top: 30px; 
+    margin-bottom: 15px;
+    margin-top: 30px;
   }
 
   .info-wrapper li {
-    font-size: 18px; 
-    margin-left: 0.3rem; 
+    font-size: 18px;
+    margin-left: 0.3rem;
     text-align: justify;
   }
 
@@ -195,11 +213,17 @@ footer p {
   .data-container {
     justify-content: center;
     display: flex;
-    gap:1.5rem;
+    gap: 3rem;
+    width: 25rem;
   }
 
-  .data-container p{
-    font-size: 18.5px;
+
+  .info-wrapper {
+    justify-content: center;
+    align-items: center;
   }
 
+  .stats-list li {
+    font-size: 20px;
+  }
 }
