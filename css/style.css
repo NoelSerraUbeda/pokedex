@@ -224,4 +224,8 @@ footer svg:hover {
     height: 3rem;
     font-size: 20px;
   }
+
+  .random svg{
+    width: 4rem;
+  }
 }
