@@ -186,6 +186,25 @@ footer svg:hover {
   cursor: pointer;
 }
 
+.random{
+  background: none;
+  border: none;
+}
+
+.random svg{
+  width: 5rem;
+  fill: white;
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.random svg:hover{
+  transform: scale(1.1);
+}
+
 @media only screen and (max-width: 600px) {
 
   .poke-container {

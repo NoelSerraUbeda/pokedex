@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const poke_container = document.getElementById('poke-container');
   const type_filter_buttons = document.getElementById('filter-buttons');
+
   const loader = document.getElementById('loader');
   const pokemon_count = 1025;
   const colors = {
@@ -14,12 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const main_types = Object.keys(colors);
 
   const fetchPokemons = async () => {
-    loader.style.display = 'block'; 
+    loader.style.display = 'block';
     for (let i = 1; i <= pokemon_count; i++) {
       await getPokemon(i);
     }
     type_filter_buttons.style.display = 'flex';
-    loader.style.display = 'none'; 
+    loader.style.display = 'none';
   };
 
   const getPokemon = async (id) => {
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.open(`pokemon_details.html?id=${pokemon.id}`, '_blank');
     });
 
-    pokemonEl.setAttribute('data-id', pokemon.id); 
+    pokemonEl.setAttribute('data-id', pokemon.id);
     poke_container.appendChild(pokemonEl);
   };
 
@@ -160,7 +161,11 @@ document.addEventListener('DOMContentLoaded', () => {
     filterPokemonsByName(searchTerm);
   });
 
-  // Función para llevar la página al principio
+  const goToRandomPokemonDetails = () => {
+    const randomPokemonId = Math.floor(Math.random() * pokemon_count) + 1;
+    window.open(`pokemon_details.html?id=${randomPokemonId}`, '_blank');
+  };
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -168,12 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Agregar evento de click al SVG en el footer para desplazar al principio de la página
   const svgFooter = document.querySelector('footer svg');
   svgFooter.addEventListener('click', scrollToTop);
 
-  // Inicializar la Pokédex
   renderTypeFilterButtons();
   renderGenerationFilterButtons();
   fetchPokemons();
+
+  const randomPokemonButton = document.getElementById('random-pokemon-button');
+  randomPokemonButton.addEventListener('click', goToRandomPokemonDetails);
 });
