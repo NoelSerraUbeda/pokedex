@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const typeImages = {
-    fire: 'resources/images/types/fire.webp', grass: 'resources/images/types/grass.webp', electric: 'resources/images/types/electric.webp', water: 'resources/images/types/water.webp', ground: 'resources/images/types/ground.webp', rock: 'resources/images/types/rock.webp', fairy: 'resources/images/types/fairy.webp', poison: 'resources/images/types/poison.webp', bug: 'resources/images/types/bug.webp', dragon: 'resources/images/types/dragon.webp', psychic: 'resources/images/types/psychic.webp', flying: 'resources/images/types/flying.webp', fighting: 'resources/images/types/fighting.webp', normal: './resources/images/types/normal.webp', dark: 'resources/images/types/dark.webp', steel: 'resources/images/types/steel.webp', ice: 'resources/images/types/ice.webp', ghost: 'resources/images/types/ghost.webp'
+    fire: 'resources/images/types/fire.svg', grass: 'resources/images/types/grass.svg', electric: 'resources/images/types/electric.svg', water: 'resources/images/types/water.svg', ground: 'resources/images/types/ground.svg', rock: 'resources/images/types/rock.svg', fairy: 'resources/images/types/fairy.svg', poison: 'resources/images/types/poison.svg', bug: 'resources/images/types/bug.svg', dragon: 'resources/images/types/dragon.svg', psychic: 'resources/images/types/psychic.svg', flying: 'resources/images/types/flying.svg', fighting: 'resources/images/types/fighting.svg', normal: './resources/images/types/normal.svg', dark: 'resources/images/types/dark.svg', steel: 'resources/images/types/steel.svg', ice: 'resources/images/types/ice.svg', ghost: 'resources/images/types/ghost.svg'
   };
   const main_types = Object.keys(colors);
 

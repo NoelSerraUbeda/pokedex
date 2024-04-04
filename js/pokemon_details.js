@@ -39,8 +39,11 @@ const capitalizeFirstLetter = (string) => {
 
 // Display de los datos
 const displayPokemonDetails = async (pokemon) => {
+  // Dividir el nombre del Pokémon por el guión
+  const pokemonNameParts = pokemon.name.split('-');
 
-  const pokemonName = capitalizeFirstLetter(pokemon.name);
+  // Tomar solo la primera parte del nombre
+  const pokemonName = capitalizeFirstLetter(pokemonNameParts[0]);
   document.title = `Pokémon Details - ${pokemonName}`;
   const name = document.querySelector('.name');
   name.textContent = capitalizeFirstLetter(pokemon.name);
@@ -92,18 +95,21 @@ const displayPokemonDetails = async (pokemon) => {
   const speciesDetails = await getPokemonSpeciesDetails(pokemon.id);
 
   const flavorTextEntries = speciesDetails.flavor_text_entries;
-  const description = flavorTextEntries.find(entry => entry.language.name === 'en').flavor_text;
-  const description_modify = description.replace(//g, " ");
+  const descriptionEntry = flavorTextEntries.find(entry => entry.language.name === 'en');
+  const description = descriptionEntry ? descriptionEntry.flavor_text.replace(//g, " ") : "There is still no data on this aspect.";
   const descriptionParagraph = document.getElementById('pokemon-description');
-  descriptionParagraph.textContent = description_modify;
+  descriptionParagraph.textContent = description;
 
   // Mostrar altura y peso
   const heightElement = document.getElementById('height');
-  heightElement.textContent = `Height: ${pokemon.height / 10} m`; // Convertir de decímetros a metros
+  const height = pokemon.height ? `${pokemon.height / 10} m` : "There is still no data on this aspect.";
+  heightElement.textContent = `Height: ${height}`;
 
   const weightElement = document.getElementById('weight');
-  weightElement.textContent = `Weight: ${pokemon.weight / 10} kg`;
+  const weight = pokemon.weight ? `${pokemon.weight / 10} kg` : "There is still no data on this aspect.";
+  weightElement.textContent = `Weight: ${weight}`;
 };
+
 
 // Descripción
 const addPokemonDescription = (description) => {
