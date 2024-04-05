@@ -28,15 +28,17 @@ body::-webkit-scrollbar {
 h1 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   letter-spacing: 3px;
-  font-size: 60px;
+  font-size: 120px;
   font-weight: bolder;
+  margin: 0;
+  margin-bottom: 2rem;
 }
 
 .poke-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 80px;
+  margin: 0 50px;
   margin-bottom: 5rem;
 }
 
@@ -97,11 +99,11 @@ small {
   justify-content: center;
   align-items: center;
   gap: 0.2rem;
-  width: 90rem;
+  width: 85rem;
 }
 
 .filter-buttons button img {
-  width: 130px;
+  width: 120px;
   transition: all 0.3s;
 }
 
@@ -131,7 +133,10 @@ small {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
+  width: 70rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .gen-filter {
@@ -206,6 +211,10 @@ footer svg:hover {
 
 @media only screen and (max-width: 800px) {
 
+  h1 {
+    font-size: 50px;
+  }
+
   .poke-container {
     margin: 0;
   }
@@ -225,26 +234,27 @@ footer svg:hover {
   }
 
   .random svg{
-    width: 4rem;
+    width: 3rem;
   }
 
   .filter-buttons {
-    width: 35rem;
+    width: 30rem;
   }
 
   .filter-buttons button img {
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
   }
   
   .filter-buttons img {
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
     transition: all 0.3s;
   }
 
   .generation-buttons {
-    width: 35rem;
+    gap: 2rem;
+    width: 25rem;
   }
 }
 
