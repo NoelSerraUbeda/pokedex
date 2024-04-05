@@ -36,7 +36,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 50px;
+  margin: 0 80px;
   margin-bottom: 5rem;
 }
 
@@ -97,17 +97,16 @@ small {
   justify-content: center;
   align-items: center;
   gap: 0.2rem;
+  width: 90rem;
 }
 
 .filter-buttons button img {
-  width: 80px;
-  height: 80px;
+  width: 130px;
   transition: all 0.3s;
 }
 
 .filter-buttons img {
   width: 80px;
-  height: 80px;
   transition: all 0.3s;
 }
 
@@ -140,7 +139,7 @@ small {
   transition: all 0.3s;
   background: none;
   border: none;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 .gen-filter:hover {
@@ -149,9 +148,9 @@ small {
 }
 
 input {
-  width: 40rem;
-  height: 3rem;
-  font-size: 40px;
+  width: 60rem;
+  height: 6rem;
+  font-size: 60px;
   border: solid 3px grey;
   border-radius: 15px;
   padding: 1.5rem;
@@ -205,7 +204,7 @@ footer svg:hover {
   transform: scale(1.1);
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
 
   .poke-container {
     margin: 0;
@@ -216,7 +215,7 @@ footer svg:hover {
   }
   
   .gen-filter {
-    font-size: 16px;
+    font-size: 26px;
   }
 
   input {
@@ -227,5 +226,59 @@ footer svg:hover {
 
   .random svg{
     width: 4rem;
+  }
+
+  .filter-buttons {
+    width: 35rem;
+  }
+
+  .filter-buttons button img {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .filter-buttons img {
+    width: 90px;
+    height: 90px;
+    transition: all 0.3s;
+  }
+
+  .generation-buttons {
+    width: 35rem;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+
+  .gen-filter {
+    font-size: 26px;
+  }
+
+  input {
+    width: 15rem;
+    height: 3rem;
+    font-size: 20px;
+  }
+
+  .random svg{
+    width: 2rem;
+  }
+
+  .filter-buttons {
+    width: 25rem;
+  }
+
+  .filter-buttons button img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .filter-buttons img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .generation-buttons {
+    width: 25rem;
   }
 }

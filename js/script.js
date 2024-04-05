@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loader = document.getElementById('loader');
   const pokemon_count = 1025;
   const colors = {
-    fire: '#ff9c54', grass: '#63bb5b', electric: '#f3d23b', water: '#4d90d5', ground: '#d97746', rock: '#bfb186', fairy: '#ec8fe6', poison: '#ab6ac8', bug: '#90c12c', dragon: '#0a6dc4', psychic: '#f97176', flying: '#8fa8dd', fighting: '#ce4069', normal: '#8f98a0', dark: '#5a5366', steel: '#aab8c2', ice: '#a3e7fd', ghost: '#705898'
+    normal: '#8f98a0', fire: '#ff9c54', grass: '#63bb5b', electric: '#f3d23b', water: '#4d90d5', ground: '#d97746', rock: '#bfb186', fairy: '#ec8fe6', poison: '#ab6ac8', bug: '#90c12c', dragon: '#0a6dc4', psychic: '#f97176', flying: '#8fa8dd', fighting: '#ce4069', dark: '#5a5366', steel: '#aab8c2', ice: '#a3e7fd', ghost: '#705898'
   };
 
   const typeImages = {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const renderTypeFilterButtons = () => {
     const allButton = document.createElement('img');
-    allButton.src = 'resources/images/all.png';
+    allButton.src = 'resources/images/filter-off.svg';
     allButton.alt = 'All';
     allButton.addEventListener('click', () => filterPokemonsByType('all'));
     type_filter_buttons.appendChild(allButton);
