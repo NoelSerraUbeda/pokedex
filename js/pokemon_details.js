@@ -1,9 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const pokemonId = params.get('id');
+  let isMegaEvolved = false;
+
   if (pokemonId) {
     getPokemonDetails(pokemonId);
   }
+
+  // Agregar evento de clic al botón de megaevolución
+  const megaEvolutionButton = document.getElementById('mega-evolution-button');
+  megaEvolutionButton.addEventListener('click', () => {
+    if (pokemonId) {
+      // Alternar entre el estado base y la megaevolución
+      if (isMegaEvolved) {
+        // Si está megaevolucionado, mostrar los detalles del Pokémon base
+        getPokemonDetails(pokemonId);
+        isMegaEvolved = false; // Cambiar el estado a base
+      } else {
+        // Si está en su estado base, mostrar los detalles de la megaevolución
+        checkAndDisplayMegaEvolution(pokemonId);
+        isMegaEvolved = true; // Cambiar el estado a megaevolucionado
+      }
+    } else {
+      alert("Este Pokémon no tiene una forma megaevolucionada."); // Mostrar alerta si no hay una forma megaevolucionada
+    }
+  });
 });
 
 const getPokemonDetails = async (id) => {
@@ -39,12 +60,10 @@ const capitalizeFirstLetter = (string) => {
 
 // Display de los datos
 const displayPokemonDetails = async (pokemon) => {
-  // Dividir el nombre del Pokémon por el guión
   const pokemonNameParts = pokemon.name.split('-');
-
-  // Tomar solo la primera parte del nombre
   const pokemonName = capitalizeFirstLetter(pokemonNameParts[0]);
   document.title = `Pokémon Details - ${pokemonName}`;
+
   const name = document.querySelector('.name');
   name.textContent = capitalizeFirstLetter(pokemon.name);
 
@@ -54,24 +73,26 @@ const displayPokemonDetails = async (pokemon) => {
 
   const dataContainer = document.getElementById('data-container');
 
-  // Mostrar tipos
   const types = document.getElementById('pokemon-types');
   const pokemonTypes = pokemon.types.map(type => type.type.name.toLowerCase());
   types.innerHTML = '<span>Types:</span> ' + pokemonTypes.map(type => capitalizeFirstLetter(type)).join(', ');
   dataContainer.appendChild(types);
 
-  // Mostrar habilidades
   const abilities = document.getElementById('pokemon-abilities');
   const regularAbilities = pokemon.abilities.filter(ability => !ability.is_hidden).map(ability => capitalizeFirstLetter(ability.ability.name)).join(', ');
   abilities.innerHTML = '<span>Abilities:</span> ' + regularAbilities;
   dataContainer.appendChild(abilities);
 
   const hiddenAbility = pokemon.abilities.find(ability => ability.is_hidden);
-  if (hiddenAbility) {
-    const hiddenAbilityElement = document.createElement('p');
-    hiddenAbilityElement.innerHTML = '<span>Hidden Ability:</span> ' + capitalizeFirstLetter(hiddenAbility.ability.name);
-    hiddenAbilityElement.id = 'pokemon-hidden-ability';
-    abilities.parentNode.insertBefore(hiddenAbilityElement, abilities.nextSibling);
+  const hiddenAbilityElement = document.getElementById('pokemon-hidden-ability');
+
+  if (hiddenAbility && !hiddenAbilityElement) {
+    const hiddenAbilityParagraph = document.createElement('p');
+    hiddenAbilityParagraph.innerHTML = '<span>Hidden Ability:</span> ' + capitalizeFirstLetter(hiddenAbility.ability.name);
+    hiddenAbilityParagraph.id = 'pokemon-hidden-ability';
+    abilities.parentNode.insertBefore(hiddenAbilityParagraph, abilities.nextSibling);
+  } else if (!hiddenAbility && hiddenAbilityElement) {
+    hiddenAbilityElement.parentNode.removeChild(hiddenAbilityElement);
   }
 
   const statsList = document.querySelector('.stats-list');
@@ -82,25 +103,20 @@ const displayPokemonDetails = async (pokemon) => {
     statsList.appendChild(statItem);
   });
 
-  // Obtener el color correspondiente al tipo del Pokémon
   const matchingType = pokemonTypes.find(type => getColorForType(type));
 
-  // Si hay un tipo coincidente, aplicar el color como fondo a la imagen
   if (matchingType) {
     const color = getColorForType(matchingType);
     image.style.backgroundColor = color;
   }
 
-  // Agregar descripción
   const speciesDetails = await getPokemonSpeciesDetails(pokemon.id);
-
   const flavorTextEntries = speciesDetails.flavor_text_entries;
   const descriptionEntry = flavorTextEntries.find(entry => entry.language.name === 'en');
   const description = descriptionEntry ? descriptionEntry.flavor_text.replace(//g, " ") : "There is still no data on this aspect.";
   const descriptionParagraph = document.getElementById('pokemon-description');
   descriptionParagraph.textContent = description;
 
-  // Mostrar altura y peso
   const heightElement = document.getElementById('height');
   const height = pokemon.height ? `${pokemon.height / 10} m` : "There is still no data on this aspect.";
   heightElement.textContent = `Height: ${height}`;
@@ -109,6 +125,42 @@ const displayPokemonDetails = async (pokemon) => {
   const weight = pokemon.weight ? `${pokemon.weight / 10} kg` : "There is still no data on this aspect.";
   weightElement.textContent = `Weight: ${weight}`;
 };
+
+
+const checkAndDisplayMegaEvolution = async (id) => {
+  const speciesDetails = await getPokemonSpeciesDetails(id);
+
+  // Verificar si el Pokémon tiene una megaevolución
+  const hasMegaEvolution = speciesDetails.varieties.some(variety => {
+    return variety.is_default === false;
+  });
+
+  if (hasMegaEvolution) {
+    const megaEvolutionVariety = speciesDetails.varieties.find(variety => {
+      return variety.is_default === false;
+    });
+    const megaPokemonId = megaEvolutionVariety.pokemon.url.split('/').slice(-2, -1)[0];
+
+    // Verificar si el Pokémon actualmente está en su forma megaevolucionada
+    const currentUrlParams = new URLSearchParams(window.location.search);
+    const currentPokemonId = currentUrlParams.get('id');
+
+    if (currentPokemonId === megaPokemonId) {
+      // Si ya está megaevolucionado, mostrar los detalles del Pokémon normal
+      const defaultVariety = speciesDetails.varieties.find(variety => {
+        return variety.is_default === true;
+      });
+      const defaultPokemonId = defaultVariety.pokemon.url.split('/').slice(-2, -1)[0];
+      getPokemonDetails(defaultPokemonId);
+    } else {
+      // Si no está megaevolucionado, mostrar los detalles de la megaevolución
+      getPokemonDetails(megaPokemonId);
+    }
+  } else {
+    // Si el Pokémon no tiene megaevolución, no se hace nada
+  }
+};
+
 
 
 // Descripción
