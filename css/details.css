@@ -143,6 +143,31 @@ footer p {
   line-height: 0;
 }
 
+.image-container{
+  position: relative;
+}
+
+.mega {
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  transition: all 0.3s;
+  border: none;
+}
+
+.mega img{
+  width: 4rem;
+  height: 4rem;
+}
+
+.mega:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 1000px) {
   body {
     padding: 1rem 2rem 3rem 2rem;
