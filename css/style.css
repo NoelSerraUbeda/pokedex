@@ -99,16 +99,16 @@ small {
   justify-content: center;
   align-items: center;
   gap: 0.2rem;
-  width: 85rem;
+  width: 70rem;
 }
 
 .filter-buttons button img {
-  width: 120px;
+  width: 80px;
   transition: all 0.3s;
 }
 
 .filter-buttons img {
-  width: 80px;
+  width: 100px;
   transition: all 0.3s;
 }
 
