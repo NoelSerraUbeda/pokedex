@@ -123,11 +123,13 @@ const displayPokemonDetails = async (pokemon) => {
 
   const speciesDetails = await fetchData(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`);
   const flavorTextEntries = speciesDetails.flavor_text_entries.filter(entry => entry.language.name === 'en');
-  const description = flavorTextEntries.length > 0 ? flavorTextEntries[0].flavor_text.replace(//g, " ") : "There is still no data on this aspect.";
+  let description = flavorTextEntries.length > 0 ? flavorTextEntries[0].flavor_text.replace(//g, " ") : "There is still no data on this aspect.";
+
+  description = capitalizeFirstLetter(description.toLowerCase());
+
   const descriptionParagraph = document.getElementById('pokemon-description');
   descriptionParagraph.textContent = description;
 };
-
 
 const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
