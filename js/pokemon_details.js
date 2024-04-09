@@ -32,9 +32,11 @@ const checkAndDisplayAlternative = async (id) => {
     case '1007':
     case '1008':
     case '738':
+    case '754':
     case '743':
     case '735':
     case '752':
+    case '758':
     case '777':
       alternativeId = '';
       break;
@@ -50,16 +52,40 @@ const checkAndDisplayAlternative = async (id) => {
     case '1017':
       alternativeId = '10274';
       break;
+    case '479':
+      alternativeId = '10010';
+      break;
+    case '555':
+      alternativeId = '10177';
+      break;
+    case '718':
+      alternativeId = '10120';
+      break;
+    case '25':
+      alternativeId = '10199';
+      break;
     default:
       const speciesDetails = await fetchData(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
       const alternative = speciesDetails.varieties.find(variety => !variety.is_default);
-      if (!alternative) return;
+      if (!alternative) {
+        mostrarAdvertencia();
+        return;
+      }
       alternativeId = alternative.pokemon.url.split('/').slice(-2, -1)[0];
       break;
+
+      function mostrarAdvertencia() {
+        var warning = document.getElementById("warningMessage");
+        warning.style.display = "block";
+        setTimeout(function () {
+          warning.style.display = "none";
+        }, 3000);
+      }
   }
 
   getPokemonDetails(alternativeId);
 };
+
 
 const displayPokemonDetails = async (pokemon) => {
   const { name, sprites, types, abilities, stats, height, weight } = pokemon;

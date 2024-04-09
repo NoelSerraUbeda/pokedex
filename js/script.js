@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return 6;
     } else if (id <= 809) {
       return 7;
-    } else if (id <= 898) {
+    } else if (id <= 905) {
       return 8;
     } else { return 9; }
   };
