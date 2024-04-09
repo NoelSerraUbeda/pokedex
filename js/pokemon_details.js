@@ -1,15 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const pokemonId = params.get('id');
-  let isMegaEvolved = false;
+  let isAlternative = false;
 
   if (pokemonId) getPokemonDetails(pokemonId);
 
-  const megaEvolutionButton = document.getElementById('mega-evolution-button');
-  megaEvolutionButton.addEventListener('click', () => {
-    if (!pokemonId) return alert("Este Pokémon no tiene una forma megaevolucionada.");
-    isMegaEvolved = !isMegaEvolved;
-    isMegaEvolved ? checkAndDisplayMegaEvolution(pokemonId) : getPokemonDetails(pokemonId);
+  const alternativeButton = document.getElementById('alternative-button');
+  alternativeButton.addEventListener('click', () => {
+    isAlternative = !isAlternative;
+    isAlternative ? checkAndDisplayAlternative(pokemonId) : getPokemonDetails(pokemonId);
   });
 });
 
@@ -23,15 +22,46 @@ const fetchData = async (url) => {
   return await res.json();
 };
 
-const checkAndDisplayMegaEvolution = async (id) => {
-  const speciesDetails = await fetchData(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-  const megaEvolution = speciesDetails.varieties.find(variety => !variety.is_default);
-  if (!megaEvolution) return;
-  const megaPokemonId = megaEvolution.pokemon.url.split('/').slice(-2, -1)[0];
-  getPokemonDetails(megaPokemonId);
+const checkAndDisplayAlternative = async (id) => {
+  let alternativeId = id;
+
+  switch (id) {
+    case '133':
+      alternativeId = '10205';
+      break;
+    case '1007':
+    case '1008':
+    case '738':
+    case '743':
+    case '735':
+    case '752':
+    case '777':
+      alternativeId = '';
+      break;
+    case '741':
+      alternativeId = '10125';
+      break;
+    case '800':
+      alternativeId = '10157';
+      break;
+    case '128':
+      alternativeId = '10251';
+      break;
+    case '1017':
+      alternativeId = '10274';
+      break;
+    default:
+      const speciesDetails = await fetchData(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+      const alternative = speciesDetails.varieties.find(variety => !variety.is_default);
+      if (!alternative) return;
+      alternativeId = alternative.pokemon.url.split('/').slice(-2, -1)[0];
+      break;
+  }
+
+  getPokemonDetails(alternativeId);
 };
 
-const displayPokemonDetails = (pokemon) => {
+const displayPokemonDetails = async (pokemon) => {
   const { name, sprites, types, abilities, stats, height, weight } = pokemon;
   document.title = `Pokémon Details - ${capitalizeFirstLetter(name)}`;
 
@@ -62,10 +92,16 @@ const displayPokemonDetails = (pokemon) => {
   const matchingType = types.find(type => getColorForType(type.type.name));
   if (matchingType) document.getElementById('pokemon-image').style.backgroundColor = getColorForType(matchingType.type.name);
 
-  addPokemonDescription(pokemon);
   document.getElementById('height').textContent = `Height: ${height ? height / 10 + ' m' : "There is still no data on this aspect."}`;
   document.getElementById('weight').textContent = `Weight: ${weight ? weight / 10 + ' kg' : "There is still no data on this aspect."}`;
+
+  const speciesDetails = await fetchData(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}`);
+  const flavorTextEntries = speciesDetails.flavor_text_entries.filter(entry => entry.language.name === 'en');
+  const description = flavorTextEntries.length > 0 ? flavorTextEntries[0].flavor_text.replace(//g, " ") : "There is still no data on this aspect.";
+  const descriptionParagraph = document.getElementById('pokemon-description');
+  descriptionParagraph.textContent = description;
 };
+
 
 const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
