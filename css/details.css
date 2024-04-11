@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400&display=swap');
+
 body {
   background: #efefbb;
-  background: linear-gradient(to right, #d4d3dd, #efefbb);
+  background-image: url(/resources/images/back.png);
+  /* background: linear-gradient(to right, #d4d3dd, #efefbb); */
   font-family: 'Lato', sans-serif;
   display: flex;
   flex-direction: column;
@@ -36,6 +39,7 @@ p {
 
 span {
   font-weight: 900;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 #pokemon-details-container {
@@ -182,7 +186,16 @@ footer p {
   color: red;
 }
 
-@media only screen and (max-width: 1000px) {
+.pokeball {
+  border: none;
+  width: 4rem;
+  position: absolute;
+  top: -10rem;
+  left: 0;
+  z-index: 999;
+}
+
+@media only screen and (max-width: 800px) {
   body {
     padding: 1rem 2rem 3rem 2rem;
   }
@@ -192,7 +205,7 @@ footer p {
   }
 
   img {
-    height: 350px;
+    height: 300px;
   }
 
   .details-wrapper {
@@ -207,7 +220,7 @@ footer p {
 
   h1 {
     font-size: 40px;
-    margin-bottom: 20px;
+    margin-bottom: 0;
   }
 
   p {
@@ -225,7 +238,7 @@ footer p {
   }
 
   .description-container {
-    width: 25rem;
+    width: 20rem;
   }
 
   .description-container p {
@@ -233,12 +246,17 @@ footer p {
     margin-left: 0.3rem;
     text-align: justify;
     width: 100%;
+    margin-bottom: 3rem;
   }
 
   .stats {
     font-size: 30px;
     margin-bottom: 15px;
     margin-top: 30px;
+  }
+
+  .stats-list{
+    gap: 0.5rem;
   }
 
   .info-wrapper li {
@@ -250,15 +268,23 @@ footer p {
   .return svg {
     width: 3rem;
     margin-right: 1rem;
+    top: 5px;
+    right: 35px;
   }
 
   .data-container {
     justify-content: center;
     display: flex;
-    gap: 3rem;
-    width: 25rem;
+    gap: 1rem;
+    width: 20rem;
+    margin-top: 2rem;
+    text-align: center;
   }
 
+  .liner {
+    gap: 5rem;
+    justify-content: center;
+  }
 
   .info-wrapper {
     justify-content: center;
@@ -267,5 +293,30 @@ footer p {
 
   .stats-list li {
     font-size: 20px;
+  }
+
+  .warning {
+    top: -2rem;
+    max-width: 25rem;
+    left: 4rem;
+    font-size: 17px;
+  }
+
+  .alternative {
+    width: 4rem;
+    height: 4rem;
+    bottom: -10px;
+    right: -10px;
+  }
+
+  .alternative svg{
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .pokeball {
+    top: -7rem;
+    left: 1rem;
+
   }
 }

@@ -39,7 +39,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 50px;
+  margin: 0 60px;
   margin-bottom: 5rem;
 }
 
@@ -233,7 +233,7 @@ footer svg:hover {
   }
 
   .random svg{
-    width: 3rem;
+    width: 5rem;
   }
 
   .filter-buttons {
@@ -267,10 +267,6 @@ footer svg:hover {
     width: 15rem;
     height: 3rem;
     font-size: 20px;
-  }
-
-  .random svg{
-    width: 2rem;
   }
 
   .filter-buttons {
