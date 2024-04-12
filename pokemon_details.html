@@ -14,9 +14,14 @@
   <h1 class="name"></h1>
   <div id="pokemon-details-container">
     <div class="details-wrapper">
-      <h2 class="warning" id="warningMessage">Este Pókemon no tine formas alternativas</h2>
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <h3>Warning</h3>
+          <p id="modal-message">Este Pókemon no tiene formas alternativas</p>
+        </div>
+      </div>
       <div class="image-wrapper">
-        <img src="/resources/images/pokeball.svg" class="pokeball">
+        <img src="/resources/images/pokeball.svg" class="pokeball" id="pokeball-icon">
         <div class="image-container">
           <img src="" alt="" id="pokemon-image" style="padding: 0.5rem;">
           <button class="alternative" id="alternative-button">
@@ -40,14 +45,14 @@
         </div>
         <br><br>
         <div class="pokebody-container">
-          <h3 class="description-text">Height and Weight:</h3>
+          <h3 class="description-text">Height and Weight</h3>
           <div class="liner">
             <p id="height"></p>
             <p id="weight"></p>
           </div>
         </div>
         <div class="description-container">
-          <h3 class="description-text">Description:</h3>
+          <h3 class="description-text">Description</h3>
           <p id="pokemon-description"></p>
         </div>
       </div>
@@ -55,7 +60,7 @@
     </div>
   </div>
 
-  <div id="return-arrow" class="return">
+  <div id="close-arrow" class="close">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path fill="black"
         d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" />

@@ -88,11 +88,19 @@ const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + strin
 const getColorForType = (type) => colors[type] || null;
 
 const showAlert = () => {
-  const warning = document.getElementById("warningMessage");
-  warning.style.display = "block";
-  setTimeout(() => {
-    warning.style.display = "none";
-  }, 3000);
+  const modal = document.getElementById("modal");
+  const modalMessage = document.getElementById("modal-message");
+  modalMessage.textContent = "Este Pokémon no tiene formas alternativas";
+  modal.style.display = "block";
+
+  document.addEventListener("click", closeModalOnClick);
+};
+
+const closeModalOnClick = () => {
+  const modal = document.getElementById("modal");
+
+  modal.style.display = "none";
+  document.removeEventListener("click", closeModalOnClick);
 };
 
 const getPokemonDescription = async (id) => {

@@ -1,6 +1,6 @@
-const returnArrow = document.getElementById('return-arrow');
+const close = document.getElementById('close-arrow');
 
-returnArrow.addEventListener('click', () => {
+close.addEventListener('click', () => {
     // Cerrar la ventana actual
     window.close();
 });
