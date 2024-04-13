@@ -24,6 +24,7 @@ const fetchData = async (url) => {
 
 const checkAndDisplayAlternative = async (id) => {
   const alternativeId = alternativePokemonMap[id] || await getAlternativeId(id);
+
   if (id === alternativeId) {
     showAlert();
     return;
@@ -133,5 +134,6 @@ const alternativePokemonMap = {
   '752': '752',
   '758': '758',
   '777': '777',
+  '845': '845',
 };
 
