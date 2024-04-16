@@ -90,7 +90,7 @@ img {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 700px;
+  width: 900px;
 }
 
 .pokebody-container {
@@ -102,7 +102,6 @@ img {
 
 .pokebody-container p {
   font-size: 26px;
-  margin-left: 1rem;
 }
 
 .liner {
@@ -121,14 +120,15 @@ img {
 }
 
 .description-container p {
-  font-size: 24px;
+  font-size: 26px;
   margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 
 .info-wrapper li {
   list-style-type: none;
-  font-size: 30px;
+  font-size: 26px;
   margin-left: 1rem;
 }
 
@@ -140,11 +140,11 @@ img {
 
 .stats-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 30px;
   padding: 0px;
-  margin: 10px 0;
 }
+
 
 .stats-list li {
   list-style-type: none;
@@ -261,7 +261,7 @@ footer p {
   }
 
   h1 {
-    font-size: 40px;
+    font-size: 80px;
     margin-bottom: 0;
   }
 
@@ -296,7 +296,6 @@ footer p {
   }
 
   .stats {
-    font-size: 30px;
     margin-bottom: 15px;
   }
 
@@ -337,7 +336,7 @@ footer p {
   }
 
   .stats-list li {
-    font-size: 20px;
+    font-size: 14px;
   }
 
   .modal-content {

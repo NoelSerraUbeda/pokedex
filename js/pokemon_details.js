@@ -44,7 +44,9 @@ const getAlternativeId = async (id) => {
 };
 
 const displayPokemonDetails = async (pokemon) => {
-  const { name, sprites, types, abilities, stats, height, weight } = pokemon;
+  const name = pokemon.name.replace(/-standard/gi, '');
+
+  const { sprites, types, abilities, stats, height, weight } = pokemon;
   document.title = `Pokémon Details - ${capitalizeFirstLetter(name)}`;
 
   const nameElement = document.querySelector('.name');
@@ -83,6 +85,7 @@ const displayPokemonDetails = async (pokemon) => {
   const descriptionParagraph = document.getElementById('pokemon-description');
   descriptionParagraph.textContent = await getPokemonDescription(pokemon.id);
 };
+
 
 const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -127,6 +130,7 @@ const alternativePokemonMap = {
   '25': '10199',
   '1007': '1007',
   '1008': '1008',
+  '774': '10136',
   '738': '738',
   '754': '754',
   '743': '743',
@@ -135,5 +139,6 @@ const alternativePokemonMap = {
   '758': '758',
   '777': '777',
   '845': '845',
+  '784': '784',
 };
 

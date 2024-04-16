@@ -34,7 +34,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const pokemonEl = document.createElement('div');
     pokemonEl.classList.add('pokemon');
 
-    const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+    // Correcciones de nombres
+    let name = pokemon.name.replace(/-standard/gi, '');
+    name = name.replace(/-red-meteor/gi, '');
+    name = name.replace(/-altered/gi, '');
+    name = name.replace(/-normal/gi, '');
+    name = name.replace(/-incarnate/gi, '');
+    name = name.replace(/-male/gi, '');
+    name = name.replace(/-land/gi, '');
+    name = name.replace(/-average/gi, '');
+    name = name.replace(/-50/gi, '');
+    name = name.replace(/-full-belly/gi, '');
+    name = name.replace(/-disguised/gi, '');
+    name = name.replace(/-aria/gi, '');
+    name = name.replace(/-shield/gi, '');
+    name = name.replace(/-ordinary/gi, '');
+    name = name.replace(/-f/gi, '');
+    name = name.replace(/-m/gi, '');
+    name = name.replace(/-red-striped/gi, '');
+    name = name.replace(/-plant/gi, '');
+    name = name.replace(/-baile/gi, '');
+    name = name.replace(/-solo/gi, '');
+    name = name.replace(/-amped/gi, '');
+    name = name.replace(/-single-strike/gi, '');
+
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+
     const id = pokemon.id.toString().padStart(3, '0');
 
     const poke_types = pokemon.types.map(type => type.type.name);
@@ -52,11 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const pokemonInnerHTML = `
             <div class="img-container">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png" alt="${name}">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png" alt="${capitalizedName}">
             </div>
             <div class="info">
                 <span class="number">#${id}</span>
-                <h3 class="name">${name}</h3>
+                <h3 class="name">${capitalizedName}</h3>
                 ${typeInnerHTML}
             </div>
         `;
@@ -69,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pokemonEl.setAttribute('data-id', pokemon.id);
     poke_container.appendChild(pokemonEl);
   };
+
 
   const filterPokemonsByType = (type) => {
     const pokemonCards = document.querySelectorAll('.pokemon');
