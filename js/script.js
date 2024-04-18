@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const main_types = Object.keys(colors);
 
+  let pokemonTypes = {};
+
   const fetchPokemons = async () => {
     loader.style.display = 'block';
     for (let i = 1; i <= pokemon_count; i++) {
@@ -87,6 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     pokemonEl.innerHTML = pokemonInnerHTML;
 
+     // Almacenar tipos primarios y secundarios en la variable pokemonTypes
+     pokemonTypes[pokemon.id] = {
+      primaryType: primaryType,
+      secondaryType: poke_types.length > 1 ? poke_types.find(type => type !== primaryType) : null
+    };
+
     pokemonEl.addEventListener('click', () => {
       window.open(`pokemon_details.html?id=${pokemon.id}`, '_blank');
     });
@@ -98,29 +106,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterPokemonsByType = (type) => {
     const pokemonCards = document.querySelectorAll('.pokemon');
     pokemonCards.forEach((card) => {
-      const primaryTypeElement = card.querySelector('.type');
-      const secondaryTypeElement = card.querySelector('.type.secondary');
-      let primaryType = primaryTypeElement.textContent.toLowerCase();
-      let secondaryType = secondaryTypeElement ? secondaryTypeElement.textContent.toLowerCase() : '';
-
+      const pokemonId = parseInt(card.getAttribute('data-id'));
+      const types = pokemonTypes[pokemonId];
+      const primaryType = types.primaryType.toLowerCase();
+      const secondaryType = types.secondaryType ? types.secondaryType.toLowerCase() : '';
+  
       if (type === 'all' || primaryType === type.toLowerCase() || primaryType === type.toUpperCase() || secondaryType === type.toLowerCase() || secondaryType === type.toUpperCase()) {
-        card.style.display = 'inline-block'; 
+        card.style.display = 'inline-block';
+        card.style.backgroundColor = colors[primaryType];
       } else {
-        card.style.display = 'none'; 
+        card.style.display = 'none';
       }
-
+  
       if (secondaryType === type.toLowerCase() || secondaryType === type.toUpperCase()) {
+        const primaryTypeElement = card.querySelector('.type');
+        const secondaryTypeElement = card.querySelector('.type.secondary');
         const temp = primaryTypeElement.textContent;
         primaryTypeElement.textContent = secondaryTypeElement.textContent;
         secondaryTypeElement.textContent = temp;
-
-        primaryType = primaryTypeElement.textContent.toLowerCase();
-
-        const primaryColor = colors[primaryType];
-        card.style.backgroundColor = primaryColor;
+        card.style.backgroundColor = colors[secondaryType];
       }
     });
   };
+  
 
   const renderTypeFilterButtons = () => {
     const allButton = document.createElement('img');
