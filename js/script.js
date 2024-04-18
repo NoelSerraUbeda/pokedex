@@ -95,15 +95,29 @@ document.addEventListener('DOMContentLoaded', () => {
     poke_container.appendChild(pokemonEl);
   };
 
-
   const filterPokemonsByType = (type) => {
     const pokemonCards = document.querySelectorAll('.pokemon');
     pokemonCards.forEach((card) => {
-      const cardType = card.querySelector('.type').textContent.toLowerCase();
-      if (type === 'all' || cardType === type.toLowerCase() || cardType === type.toUpperCase()) {
-        card.style.display = 'inline-block';
+      const primaryTypeElement = card.querySelector('.type');
+      const secondaryTypeElement = card.querySelector('.type.secondary');
+      let primaryType = primaryTypeElement.textContent.toLowerCase();
+      let secondaryType = secondaryTypeElement ? secondaryTypeElement.textContent.toLowerCase() : '';
+
+      if (type === 'all' || primaryType === type.toLowerCase() || primaryType === type.toUpperCase() || secondaryType === type.toLowerCase() || secondaryType === type.toUpperCase()) {
+        card.style.display = 'inline-block'; 
       } else {
-        card.style.display = 'none';
+        card.style.display = 'none'; 
+      }
+
+      if (secondaryType === type.toLowerCase() || secondaryType === type.toUpperCase()) {
+        const temp = primaryTypeElement.textContent;
+        primaryTypeElement.textContent = secondaryTypeElement.textContent;
+        secondaryTypeElement.textContent = temp;
+
+        primaryType = primaryTypeElement.textContent.toLowerCase();
+
+        const primaryColor = colors[primaryType];
+        card.style.backgroundColor = primaryColor;
       }
     });
   };
