@@ -59,25 +59,26 @@ document.addEventListener('DOMContentLoaded', () => {
     name = name.replace(/-solo/gi, '');
     name = name.replace(/-amped/gi, '');
     name = name.replace(/-single-strike/gi, '');
+    name = name.replace(/mrime/gi, 'Mr-Mime');
 
-    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+  const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
 
-    const id = pokemon.id.toString().padStart(3, '0');
+  const id = pokemon.id.toString().padStart(3, '0');
 
-    const poke_types = pokemon.types.map(type => type.type.name);
-    const primaryType = main_types.find(type => poke_types.indexOf(type) > -1);
-    const color = colors[primaryType];
+  const poke_types = pokemon.types.map(type => type.type.name);
+  const primaryType = main_types.find(type => poke_types.indexOf(type) > -1);
+  const color = colors[primaryType];
 
-    pokemonEl.style.backgroundColor = color;
+  pokemonEl.style.backgroundColor = color;
 
-    let typeInnerHTML = `<small class="type">${primaryType}</small>`;
+  let typeInnerHTML = `<small class="type">${primaryType}</small>`;
 
-    if (poke_types.length > 1) {
-      const secondaryType = poke_types.find(type => type !== primaryType);
-      typeInnerHTML += `&nbsp;&nbsp<small class="type secondary">${secondaryType}</small>`;
-    }
+  if (poke_types.length > 1) {
+    const secondaryType = poke_types.find(type => type !== primaryType);
+    typeInnerHTML += `&nbsp;&nbsp<small class="type secondary">${secondaryType}</small>`;
+  }
 
-    const pokemonInnerHTML = `
+  const pokemonInnerHTML = `
             <div class="img-container">
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png" alt="${capitalizedName}">
             </div>
@@ -87,147 +88,152 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${typeInnerHTML}
             </div>
         `;
-    pokemonEl.innerHTML = pokemonInnerHTML;
+  pokemonEl.innerHTML = pokemonInnerHTML;
 
-     // Almacenar tipos primarios y secundarios en la variable pokemonTypes
-     pokemonTypes[pokemon.id] = {
-      primaryType: primaryType,
-      secondaryType: poke_types.length > 1 ? poke_types.find(type => type !== primaryType) : null
-    };
-
-    pokemonEl.addEventListener('click', () => {
-      window.open(`pokemon_details.html?id=${pokemon.id}`, '_blank');
-    });
-
-    pokemonEl.setAttribute('data-id', pokemon.id);
-    poke_container.appendChild(pokemonEl);
+  // Almacenar tipos primarios y secundarios en la variable pokemonTypes
+  pokemonTypes[pokemon.id] = {
+    primaryType: primaryType,
+    secondaryType: poke_types.length > 1 ? poke_types.find(type => type !== primaryType) : null
   };
 
-  const filterPokemonsByType = (type) => {
-    const pokemonCards = document.querySelectorAll('.pokemon');
-    pokemonCards.forEach((card) => {
-      const pokemonId = parseInt(card.getAttribute('data-id'));
-      const types = pokemonTypes[pokemonId];
-      const primaryType = types.primaryType.toLowerCase();
-      const secondaryType = types.secondaryType ? types.secondaryType.toLowerCase() : '';
-  
-      if (type === 'all' || primaryType === type.toLowerCase() || primaryType === type.toUpperCase() || secondaryType === type.toLowerCase() || secondaryType === type.toUpperCase()) {
-        card.style.display = 'inline-block';
-        card.style.backgroundColor = colors[primaryType];
-      } else {
-        card.style.display = 'none';
-      }
-  
-      if (secondaryType === type.toLowerCase() || secondaryType === type.toUpperCase()) {
-        const primaryTypeElement = card.querySelector('.type');
-        const secondaryTypeElement = card.querySelector('.type.secondary');
-        const temp = primaryTypeElement.textContent;
-        primaryTypeElement.textContent = secondaryTypeElement.textContent;
-        secondaryTypeElement.textContent = temp;
-        card.style.backgroundColor = colors[secondaryType];
-      }
-    });
-  };
-  
-
-  const renderTypeFilterButtons = () => {
-    const allButton = document.createElement('img');
-    allButton.src = 'resources/images/filter-off.svg';
-    allButton.alt = 'All';
-    allButton.addEventListener('click', () => filterPokemonsByType('all'));
-    type_filter_buttons.appendChild(allButton);
-
-    main_types.forEach((type) => {
-      const button = document.createElement('button');
-      const img = document.createElement('img');
-      img.src = typeImages[type];
-      img.alt = type;
-      button.appendChild(img);
-      button.addEventListener('click', () => filterPokemonsByType(type));
-      type_filter_buttons.appendChild(button);
-    });
-    type_filter_buttons.style.display = 'none';
-  };
-
-  const filterPokemonsByGeneration = (gen) => {
-    const pokemons = document.querySelectorAll('.pokemon');
-    pokemons.forEach(pokemon => {
-      const pokemonId = parseInt(pokemon.getAttribute('data-id'));
-      if (gen === 'all' || getGeneration(pokemonId) === gen) {
-        pokemon.style.display = 'inline-block';
-      } else {
-        pokemon.style.display = 'none';
-      }
-    });
-  };
-
-  const renderGenerationFilterButtons = () => {
-    const genButtons = document.querySelectorAll('.gen-filter');
-    genButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const gen = button.getAttribute('data-gen');
-        filterPokemonsByGeneration(gen === 'all' ? 'all' : parseInt(gen));
-      });
-    });
-  };
-
-  const getGeneration = (id) => {
-    if (id <= 151) {
-      return 1;
-    } else if (id <= 251) {
-      return 2;
-    } else if (id <= 386) {
-      return 3;
-    } else if (id <= 493) {
-      return 4;
-    } else if (id <= 649) {
-      return 5;
-    } else if (id <= 721) {
-      return 6;
-    } else if (id <= 809) {
-      return 7;
-    } else if (id <= 905) {
-      return 8;
-    } else { return 9; }
-  };
-
-  const filterPokemonsByName = (name) => {
-    const pokemonCards = document.querySelectorAll('.pokemon');
-    pokemonCards.forEach((card) => {
-      const pokemonName = card.querySelector('.name').textContent.toLowerCase();
-      if (pokemonName.includes(name.toLowerCase())) {
-        card.style.display = 'inline-block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  };
-
-  const pokemonSearchInput = document.getElementById('pokemon-search');
-  pokemonSearchInput.addEventListener('input', () => {
-    const searchTerm = pokemonSearchInput.value;
-    filterPokemonsByName(searchTerm);
+  pokemonEl.addEventListener('click', () => {
+    window.open(`pokemon_details.html?id=${pokemon.id}`, '_blank');
   });
 
-  const goToRandomPokemonDetails = () => {
-    const randomPokemonId = Math.floor(Math.random() * pokemon_count) + 1;
-    window.open(`pokemon_details.html?id=${randomPokemonId}`, '_blank');
-  };
+  pokemonEl.setAttribute('data-id', pokemon.id);
+  poke_container.appendChild(pokemonEl);
+};
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+const filterPokemonsByType = (type) => {
+  const pokemonCards = document.querySelectorAll('.pokemon');
+  pokemonCards.forEach((card) => {
+    const pokemonId = parseInt(card.getAttribute('data-id'));
+    const types = pokemonTypes[pokemonId];
+    const primaryType = types.primaryType.toLowerCase();
+    const secondaryType = types.secondaryType ? types.secondaryType.toLowerCase() : '';
+
+    if (type === 'all' || primaryType === type.toLowerCase() || primaryType === type.toUpperCase() || secondaryType === type.toLowerCase() || secondaryType === type.toUpperCase()) {
+      card.style.display = 'inline-block';
+      card.style.backgroundColor = colors[primaryType];
+    } else {
+      card.style.display = 'none';
+    }
+
+    if (secondaryType === type.toLowerCase() || secondaryType === type.toUpperCase()) {
+      const primaryTypeElement = card.querySelector('.type');
+      const secondaryTypeElement = card.querySelector('.type.secondary');
+      const temp = primaryTypeElement.textContent;
+      primaryTypeElement.textContent = secondaryTypeElement.textContent;
+      secondaryTypeElement.textContent = temp;
+      card.style.backgroundColor = colors[secondaryType];
+    }
+  });
+};
+
+
+const renderTypeFilterButtons = () => {
+  const allButton = document.createElement('img');
+  allButton.src = 'resources/images/filter-off.svg';
+  allButton.alt = 'All';
+  allButton.addEventListener('click', () => filterPokemonsByType('all'));
+  type_filter_buttons.appendChild(allButton);
+
+  main_types.forEach((type) => {
+    const button = document.createElement('button');
+    const img = document.createElement('img');
+    img.src = typeImages[type];
+    img.alt = type;
+    button.appendChild(img);
+    button.addEventListener('click', () => filterPokemonsByType(type));
+    type_filter_buttons.appendChild(button);
+  });
+  type_filter_buttons.style.display = 'none';
+};
+
+const filterPokemonsByGeneration = (gen) => {
+  const pokemons = document.querySelectorAll('.pokemon');
+  pokemons.forEach(pokemon => {
+    const pokemonId = parseInt(pokemon.getAttribute('data-id'));
+    if (gen === 'all' || getGeneration(pokemonId) === gen) {
+      pokemon.style.display = 'inline-block';
+    } else {
+      pokemon.style.display = 'none';
+    }
+  });
+};
+
+const renderGenerationFilterButtons = () => {
+  const genButtons = document.querySelectorAll('.gen-filter');
+  genButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const gen = button.getAttribute('data-gen');
+      filterPokemonsByGeneration(gen === 'all' ? 'all' : parseInt(gen));
     });
-  };
+  });
+};
 
-  const svgFooter = document.querySelector('footer svg');
-  svgFooter.addEventListener('click', scrollToTop);
+const getGeneration = (id) => {
+  if (id <= 151) {
+    return 1;
+  } else if (id <= 251) {
+    return 2;
+  } else if (id <= 386) {
+    return 3;
+  } else if (id <= 493) {
+    return 4;
+  } else if (id <= 649) {
+    return 5;
+  } else if (id <= 721) {
+    return 6;
+  } else if (id <= 809) {
+    return 7;
+  } else if (id <= 905) {
+    return 8;
+  } else { return 9; }
+};
 
-  renderTypeFilterButtons();
-  renderGenerationFilterButtons();
-  fetchPokemons();
+const filterPokemonsByName = (name) => {
+  const pokemonCards = document.querySelectorAll('.pokemon');
+  pokemonCards.forEach((card) => {
+    const pokemonName = card.querySelector('.name').textContent.toLowerCase();
+    if (pokemonName.includes(name.toLowerCase())) {
+      card.style.display = 'inline-block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+};
 
-  const randomPokemonButton = document.getElementById('random-pokemon-button');
-  randomPokemonButton.addEventListener('click', goToRandomPokemonDetails);
+const pokemonSearchInput = document.getElementById('pokemon-search');
+pokemonSearchInput.addEventListener('input', () => {
+  const searchTerm = pokemonSearchInput.value;
+  filterPokemonsByName(searchTerm);
+});
+
+const goToRandomPokemonDetails = () => {
+  const randomPokemonId = Math.floor(Math.random() * pokemon_count) + 1;
+  window.open(`pokemon_details.html?id=${randomPokemonId}`, '_blank');
+};
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+};
+
+const svgFooter = document.querySelector('footer svg');
+svgFooter.addEventListener('click', scrollToTop);
+
+renderTypeFilterButtons();
+renderGenerationFilterButtons();
+fetchPokemons();
+
+const randomPokemonButton = document.getElementById('random-pokemon-button');
+randomPokemonButton.addEventListener('click', goToRandomPokemonDetails);
+
+const teamsIcon = document.querySelector('.teams');
+teamsIcon.addEventListener('click', () => {
+  window.open('teams.html', '_blank');
+});
 });
