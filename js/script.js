@@ -27,10 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getPokemon = async (id) => {
     const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    createPokemonCard(data);
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await res.json();
+      createPokemonCard(data);
+    } catch (error) {
+      console.error('Error fetching pokemon:', error);
+    }
   };
+  
 
   const createPokemonCard = (pokemon) => {
     const pokemonEl = document.createElement('div');
