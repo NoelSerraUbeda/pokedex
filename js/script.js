@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     name = name.replace(/-amped/gi, '');
     name = name.replace(/-single-strike/gi, '');
     name = name.replace(/mrime/gi, 'Mr-Mime');
+    name = name.replace(/-zero/gi, '');
 
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
 
